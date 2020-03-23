@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Customer {
-    private String name;
-    private List<Rental> rentals;
+    private final String name;
+    private final List<Rental> rentals;
 
     public Customer(String name) {
         this.name = name;
@@ -21,44 +21,38 @@ public class Customer {
     }
 
     public String statement() {
-        double totalAmount = 0;
-        int frequentRenterPoints = 0;
-        String result = "Rental Record for " + getName() + "\n";
+        String result = "Rental record for " + getName() + "\n";
         for (Rental rental : rentals) {
-            double thisAmount = 0;
-
-            // 각 영화에 대한 요금 결정
-            switch (rental.getMovie().getPriceCode()) {
-                case Movie.REGULAR:
-                    thisAmount += 2;
-                    if (rental.getDaysRented() > 2) {
-                        thisAmount += (rental.getDaysRented() - 2) * 1.5;
-                    }
-                    break;
-                case Movie.NEW_RELEASE:
-                    thisAmount += rental.getDaysRented() * 3;
-                    break;
-                case Movie.CHILDREN:
-                    thisAmount += 1.5;
-                    if (rental.getDaysRented() > 3) {
-                        thisAmount += (rental.getDaysRented() - 3) * 1.5;
-                    }
-                    break;
-            }
-            // 포인트(frequent renter points) 추가
-            frequentRenterPoints++;
-            // new release를 2일 이상 대여하는 경우 추가 포인트 제공
-            if (rental.getMovie().getPriceCode() == Movie.NEW_RELEASE && rental.getDaysRented() > 1) {
-                frequentRenterPoints++;
-            }
-
-            // 이 대여에 대한 요금 계산결과 표시
-            result += "\t" + rental.getMovie().getTitle() + "\t" + thisAmount + "\n";
-            totalAmount += thisAmount;
+            result += "\t" + rental.getMovie().getTitle() + "\t" + rental.getCharge() + "\n";
         }
-        // footer 추가
-        result += "Amount owed is " + totalAmount + "\n";
-        result += "You earned " + frequentRenterPoints + "frequent renter points";
+        result += "Amount owed is " + getTotalCharge() + "\n";
+        result += "You earned " + getTotalFrequentRenterPoints() + " frequent renter points";
         return result;
+    }
+
+    public String htmlStatement() {
+        String result = "<h1>Rental record for <b>" + getName() + "</b></h1>\n";
+        for (Rental rental : rentals) {
+            result += "<p>" + rental.getMovie().getTitle() + "\t" + rental.getCharge() + "</p>\n";
+        }
+        result += "<p>Amount owed is <b>" + getTotalCharge() + "</b></p>\n";
+        result += "<p>You earned <b>" + getTotalFrequentRenterPoints() + " frequent renter points</b></p>";
+        return result;
+    }
+
+    private double getTotalCharge() {
+        double total = 0;
+        for (Rental rental : rentals) {
+            total += rental.getCharge();
+        }
+        return total;
+    }
+
+    private int getTotalFrequentRenterPoints() {
+        int total = 0;
+        for (Rental rental : rentals) {
+            total += rental.getFrequentRenterPoints();
+        }
+        return total;
     }
 }
