@@ -1,4 +1,4 @@
-package com.pubg.xtrm.example1;
+package com.pubg.xtrm.study.refactoring.chapter1;
 
 public class Main {
 
