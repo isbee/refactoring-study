@@ -13,22 +13,27 @@ public class Customer {
     }
 
     void printOwing() {
-        double outstanding = 0.0;
         printBanner();
-
-        // calculate outstanding
-        for (Order e : orders) {
-            outstanding += e.getAmount();
-        }
-
-        //print details
-        System.out.println("name:" + name);
-        System.out.println("amount" + outstanding);
+        double outstanding = getOutstanding();
+        printDetails(outstanding);
     }
 
     void printBanner() { // print banner
         System.out.println("**************************");
         System.out.println("***** Customer Owes ******");
         System.out.println("**************************");
+    }
+
+    double getOutstanding() {
+        double outstanding = 0.0;
+        for (Order e : orders) {
+            outstanding += e.getAmount();
+        }
+        return outstanding;
+    }
+
+    void printDetails(double outstanding) {
+        System.out.println("name:" + name);
+        System.out.println("amount" + outstanding);
     }
 }
