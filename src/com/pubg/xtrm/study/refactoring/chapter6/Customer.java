@@ -12,11 +12,12 @@ public class Customer {
         this.orders = orders;
     }
 
-    void printOwing() {
+    void printOwing(double previousAmount) {
         printBanner();
-        double outstanding = getOutstanding();
+        double outstanding = getOutstanding(previousAmount * 1.2);
         printDetails(outstanding);
     }
+
 
     void printBanner() { // print banner
         System.out.println("**************************");
@@ -24,10 +25,9 @@ public class Customer {
         System.out.println("**************************");
     }
 
-    double getOutstanding() {
-        double outstanding = 0.0;
-        for (Order e : orders) {
-            outstanding += e.getAmount();
+    double getOutstanding(double outstanding) {
+        for (Order o : orders) {
+            outstanding += o.getAmount();
         }
         return outstanding;
     }
