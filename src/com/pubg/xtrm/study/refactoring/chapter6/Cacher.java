@@ -1,5 +1,8 @@
 package com.pubg.xtrm.study.refactoring.chapter6;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Cacher {
 
     private final int DUCK = 1;
@@ -8,17 +11,16 @@ public class Cacher {
     private final int BEEF = 1;
 
     int calculate(int meatType, int weight) throws Exception {
-        if (meatType == DUCK) {
-            return 240 * weight;
-        }
-        if (meatType == PORK) {
-            return 100 * weight;
-        }
-        if (meatType == CHICKEN) {
-            return 150 * weight;
-        }
-        if (meatType == BEEF) {
-            return 300 * weight;
+        Map<Integer, Integer> meats = new HashMap<Integer, Integer>() {
+            {
+                put(DUCK, 240);
+                put(PORK, 100);
+                put(CHICKEN, 240);
+                put(BEEF, 240);
+            }
+        };
+        if (meats.containsKey(meatType)) {
+            return meats.get(meatType) * weight;
         }
 
         throw new Exception("Not supported meatType");
