@@ -1,28 +1,34 @@
 package com.pubg.xtrm.study.refactoring.chapter6;
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class Cacher {
 
-    private final int DUCK = 1;
-    private final int PORK = 1;
-    private final int CHICKEN = 1;
-    private final int BEEF = 1;
+    void totalPricer() {
+//        int price = Meet.BEEF.price() + Book.E_BOOK.price();
+//        return price;
 
-    int calculate(int meatType, int weight) throws Exception {
-        Map<Integer, Integer> meats = new HashMap<Integer, Integer>() {
-            {
-                put(DUCK, 240);
-                put(PORK, 100);
-                put(CHICKEN, 240);
-                put(BEEF, 240);
-            }
-        };
-        if (meats.containsKey(meatType)) {
-            return meats.get(meatType) * weight;
+          // or
+//        int price = 0;
+//        for (Product p : bascket) {
+//            price += p.price();
+//        }
+//        return price;
+    }
+
+    enum Meet {
+        DUCK(240),
+        PORK(100),
+        CHICKEN(240),
+        BEEF(240);
+
+        private int premium;
+
+        Meet(int premium)  {
+            this.premium = premium;
         }
 
-        throw new Exception("Not supported meatType");
+        public int price(int weight) {
+            return this.premium * weight;
+        }
     }
 }
