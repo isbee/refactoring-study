@@ -5,28 +5,30 @@ import java.util.Map;
 
 public class Currency {
 
-    private static Map<String, Currency> currencyList = new HashMap<>(){
-        {
-            put("USD", new Currency("USD"));
-            put("KRW", new Currency("KRW"));
-        }
-    };
     private String code;
 
     public String getCode() {
         return code;
     }
 
-    private Currency(String code) {
+    public Currency(String code) {
         this.code = code;
     }
 
-    public static Currency getCurrencyByCode(String code) {
-        return currencyList.get(code);
+    public boolean equals(Object currency) {
+        if (!(currency instanceof Currency)) {
+            return false;
+        }
+        Currency c = (Currency) currency;
+        return code.equals(c.code);
+    }
+
+    public int hashCode() {
+        return code.hashCode();
     }
 
     public static void main(String[] args) {
-        new Currency("USD").equals(new Currency("USD"));   // false
-        Currency c = getCurrencyByCode("USD");   // reference object
+        new Currency("USD").equals(new Currency("USD"));   // true
+        Currency c = new Currency("USD");    // value object
     }
 }
