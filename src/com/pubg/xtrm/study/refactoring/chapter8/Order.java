@@ -2,17 +2,21 @@ package com.pubg.xtrm.study.refactoring.chapter8;
 
 public class Order {
 
-    private String customer;
+    private Customer customer;
 
-    public Order(String customer) {
-        this.customer = customer;
+    public Order(String customerName) {
+        this.customer = new Customer(customerName);
     }
 
-    public String getCustomer() {
+    public Customer getCustomer() {
         return customer;
     }
 
-    public void setCustomer(String arg) {
-        customer = arg;
+    public void setCustomer(String customerName) {
+        customer = new Customer(customerName);
+    }
+
+    public String getCustomerName() {
+        return customer.getName();
     }
 }
