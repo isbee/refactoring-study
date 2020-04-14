@@ -10,7 +10,7 @@ public class CappedRange extends IntRange {
         this.cap = cap;
     }
 
-    int cappedHigh() {
+    int getHigh() {
         return Math.min(high, cap);
     }
 }
