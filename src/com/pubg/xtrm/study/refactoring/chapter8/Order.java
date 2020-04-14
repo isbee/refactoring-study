@@ -5,7 +5,7 @@ public class Order {
     private Customer customer;
 
     public Order(String customerName) {
-        this.customer = new Customer(customerName);
+        this.customer = Customer.getNamedCustomer(customerName);
     }
 
     public Customer getCustomer() {
@@ -13,7 +13,7 @@ public class Order {
     }
 
     public void setCustomer(String customerName) {
-        customer = new Customer(customerName);
+        customer = Customer.getNamedCustomer(customerName);
     }
 
     public String getCustomerName() {
