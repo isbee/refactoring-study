@@ -6,9 +6,15 @@ public class Employee {
     static final int SALESMAN = 1;
     static final int MANAGER = 2;
 
-    private int type;
+    public static Employee create(int type) {
+        switch (type) {
+            case ENGINEER:
+                return new Engineer(type);
+            default:
+                throw new IllegalArgumentException("Invalid employee type");
+        }
+    }
 
-    public Employee(int type) {
-        type = type;
+    Employee() {
     }
 }
