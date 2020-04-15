@@ -11,8 +11,11 @@ public class Customer2 {
         return orders;
     }
 
-    // Customer도 control에 관여하고 싶은 경우
-//    void addOrder(Order2 arg) {
-//        arg.setCustomer(this);
-//    }
+    void addOrder(Order2 arg) {
+        arg.addCustomer(this);
+    }
+
+    void removeOrder(Order2 arg) {
+        arg.removeCustomer(this);
+    }
 }

@@ -1,21 +1,27 @@
 package com.pubg.xtrm.study.refactoring.chapter8;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Order2 {
 
-    Customer2 customer;
+    Set<Customer2> customers = new HashSet<>();
 
-    Customer2 getCustomer() {
-        return customer;
+    Set<Customer2> getCustomers() {
+        return customers;
     }
 
-    // Customer와 Order는 one to many 관계이므로, Order가 controller 역할을 한다.
-    void setCustomer(Customer2 arg) {
-        if (customer != null) {
-            customer.friendOrders().remove(this);
-        }
-        customer = arg;
-        if (customer != null) {
-            customer.friendOrders().add(this);
-        }
+    /**
+     * 예시에서는 Order가 controller 역할을 하지만,
+     * Customer와 Order가 many to many 관계이므로 Customer가 controller 여도 무관하다.
+     * */
+    void addCustomer(Customer2 arg) {
+        arg.friendOrders().add(this);
+        customers.add(arg);
+    }
+
+    void removeCustomer(Customer2 arg) {
+        arg.friendOrders().remove(this);
+        customers.remove(arg);
     }
 }
