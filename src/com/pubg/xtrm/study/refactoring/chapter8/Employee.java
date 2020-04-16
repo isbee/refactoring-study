@@ -9,7 +9,7 @@ public class Employee {
     public static Employee create(int type) {
         switch (type) {
             case ENGINEER:
-                return new Engineer(type);
+                return new Engineer();
             default:
                 throw new IllegalArgumentException("Invalid employee type");
         }
