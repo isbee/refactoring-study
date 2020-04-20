@@ -6,12 +6,10 @@ import java.util.List;
 
 public class Account {
 
-    double getFlowBetween(Date start, Date end) {
+    double getFlowBetween(DateRange range) {
         double result = 0;
         for (Entry e : entries) {
-            if (e.getDate().equals(start) ||
-                    e.getDate().equals(end) || (e.getDate().after(start) &&
-                    e.getDate().before(end))) {
+            if (range.includes(e.getDate())) {
                 result += e.getValue();
             }
         }
@@ -21,5 +19,5 @@ public class Account {
     private List<Entry> entries = new ArrayList<>();
 
     // client code
-//    double flow = account.getFlowBetween(startDate, endDate);
+//    double flow = account.getFlowBetween(new DateRange(startDate, endDate));
 }
