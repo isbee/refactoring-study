@@ -6,16 +6,15 @@ public class Employee {
     static final int SALESMAN = 1;
     static final int MANAGER = 2;
 
-    static Employee create(int type) {
-        switch (type) {
-            case ENGINEER:
-                // return new Engineer();
-            case SALESMAN:
-                // return new Salesman();
-            case MANAGER:
-                // return new Manager();
-            default:
-                throw new IllegalArgumentException("Incorrect type code value");
-        }
+    static Employee createEngineer() {
+        return new Engineer();
+    }
+
+    static Employee createSalesman() {
+        return new Salesman();
+    }
+
+    static Employee createManager() {
+        return new Manager();
     }
 }
